@@ -1,0 +1,62 @@
+BTEQ 15.10.01.01 Thu Mar 08 14:31:59 2018 PID: 15520
+ 
++---------+---------+---------+---------+---------+---------+---------+----
+.RUN FILE = logon.txt
++---------+---------+---------+---------+---------+---------+---------+----
+.logmech LDAP
++---------+---------+---------+---------+---------+---------+---------+----
+.logon db1teradata1p/bruno_scheibler,
+
+ *** Logon successfully completed.
+ *** Teradata Database Release is 15.10.07.02                   
+ *** Teradata Database Version is 15.10.07.02a                    
+ *** Transaction Semantics are BTET.
+ *** Session Character Set Name is 'ASCII'.
+ 
+ *** Total elapsed time was 1 second.
+ 
+ *** Encountered EOF on RUN file. Returning to stdin.
++---------+---------+---------+---------+---------+---------+---------+----
+
+SELECT 1 FROM DBC.TABLES WHERE DatabaseName = 'BI_INDICADORES' AND TableNam
+e = 'TESTE';
+
+ *** Query completed. No rows found. 
+ *** Total elapsed time was 14 seconds.
+
+
++---------+---------+---------+---------+---------+---------+---------+----
+
+.IF ACTIVITYCOUNT = 0 THEN GOTO CreateNewTable
+GOTO CreateNewTable
+ *** Warning: Commands not prefixed with a '.' may be submitted as SQL.
++---------+---------+---------+---------+---------+---------+---------+----
+
+DROP TABLE BI_INDICADORES.TESTE;
+ *** Skipped.
++---------+---------+---------+---------+---------+---------+---------+----
+
+.IF ERRORCODE = 3807 THEN GOTO CreateNewTable
+ *** Skipped.
++---------+---------+---------+---------+---------+---------+---------+----
+.IF ERRORCODE > 0 THEN .QUIT ERRORCODE
+ *** Skipped.
++---------+---------+---------+---------+---------+---------+---------+----
+
+.LABEL CreateNewTable
++---------+---------+---------+---------+---------+---------+---------+----
+
+CREATE TABLE BI_INDICADORES.TESTE AS (SELECT 'A' AS A) WITH DATA;
+
+ *** Table has been created. 
+ *** Total elapsed time was 5 seconds.
+
+
++---------+---------+---------+---------+---------+---------+---------+----
+
+.LOGOFF
+ *** You are now logged off from the DBC.
++---------+---------+---------+---------+---------+---------+---------+----
+.EXIT
+ *** Exiting BTEQ...
+ *** RC (return code) = 0 

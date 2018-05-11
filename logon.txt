@@ -1,0 +1,2 @@
+.logmech LDAP
+.logon <host>/<username>,<password>
